@@ -1,0 +1,17 @@
+.Addtran {
+}
+
+.Addtran h3 {
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgb(109, 109, 109);
+}
+
+.Addtran form > .form-control{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.Addtran form > .form-control *{
+    margin-bottom: 10px;
+}
