@@ -4,7 +4,7 @@ import "../Styles/Addtrans.css";
 import { connect } from "react-redux";
 import { addTodo } from "../Redux/action";
 
-function Addtran() {
+function Addtran(props) {
   const [transaction, setTransaction] = React.useState({
     amount: 0,
     description: "",
@@ -12,9 +12,17 @@ function Addtran() {
 
   const handleChange = (e) => {
     setTransaction({ ...transaction, [e.target.name]: e.target.value });
-    console.log(transaction);
+    
   };
 
+  const onSubmit =()=>{
+    console.log(transaction);
+    props.addTodo(transaction);
+    setTransaction({
+      amount: 0,
+      description: "",
+    });
+  }
   return (
 <div className="Addtran">
       <h3>Add new transaction</h3>
@@ -37,10 +45,17 @@ function Addtran() {
             onChange={(e) => handleChange(e)}
           />
         </div>
-        <button className="btn">Add transaction</button>
+        <input type="button" className="btn" onClick={()=>onSubmit()} value="Add transaction"/>
       </form>
     </div>
   );
 }
 
-export default Addtran;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addTodo: (payload)=>{dispatch(addTodo(payload))},
+     
+    }
+};
+
+export default connect(null,mapDispatchToProps)(Addtran);

@@ -1,4 +1,4 @@
 import { combineReducers } from "redux";
-import todos from "./todos";
+import transaction from "./transaction";
 
-export default combineReducers({ todos});
+export default combineReducers({ transaction});
