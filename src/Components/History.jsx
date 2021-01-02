@@ -2,24 +2,41 @@ import React from 'react'
 
 import "../Styles/History.css";
 import { connect } from "react-redux";
-
+import { deleteTransaction } from "../Redux/action";
 function History(props) {
-  console.log(props.transactionList)
+  
+  const onSubmit=(id)=>{
+    console.log(id)
+    props.deleteTransaction(id)
+  }
   return (
     <div className="History">
         <h3>History</h3>
     <ul>
       {props.transactionList.map(transaction=>{
-      
-       return <li className="plus" id={transaction.id}>
+        if(parseInt(transaction.amount)>=0){
+          return <li className="plus" id={transaction.id}>
+          {transaction.description}
+          <span>
+          {transaction.amount}
+        </span>
+        <button onClick={()=>onSubmit(transaction.id)} >
+          X
+        </button>
+        </li>
+        }
+      else{
+        return <li className="minus" id={transaction.id}>
         {transaction.description}
         <span>
         {transaction.amount}
       </span>
-      <button>
+      <button onClick={()=>onSubmit(transaction.id)} >
         X
       </button>
       </li>
+      }
+       
         
       })}
         <li class="plus">
@@ -54,5 +71,10 @@ const mapStateToProps = state => ({
   // contactList: state.contactListReducer
   transactionList :state
 });
-
-export default  connect(mapStateToProps,null)(History);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteTransaction: (payload)=>{dispatch(deleteTransaction(payload))},
+     
+    }
+};
+export default  connect(mapStateToProps,mapDispatchToProps)(History);

@@ -1,16 +1,48 @@
 import "../Styles/Incexp.css";
 
-function Incexp() {
+import { connect } from "react-redux";
+
+function Incexp(props) {
+ let income=0.0;
+ let expense=0.0;
   return (
     <div className="Incexp">
       <div className="income">
-        INCOME <span>$10.00</span>
+        INCOME {props.transactionList.map(transaction=>{
+           
+            if(parseFloat(transaction.amount)>=0){
+              
+              income=income+parseFloat(transaction.amount)
+            }
+            console.log(income)
+           
+
+        })
+        } 
+        <span>${income}</span>
       </div>
       <div className="expense">
-        EXPENSE <span>$10.00</span>
+        EXPENSE {props.transactionList.map(transaction=>{
+           
+           if(parseFloat(transaction.amount)<0){
+             
+            expense=expense+parseFloat(transaction.amount)
+           }
+           console.log(expense)
+          
+
+       })
+       } 
+       <span>- ${Math.abs(expense)}</span>
       </div>
     </div>
   );
 }
 
-export default Incexp;
+const mapStateToProps = state => ({
+  
+  // contactList: state.contactListReducer
+  transactionList :state
+});
+
+export default connect(mapStateToProps,null)(Incexp);

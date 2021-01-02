@@ -11,7 +11,7 @@ export const addTodo = content => ({
   
 });
 
-export const toggleTodo = id => ({
+export const deleteTransaction = id => ({
   type: DELETE_TRANSACTION,
   payload: { id }
 });

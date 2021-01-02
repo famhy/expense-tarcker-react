@@ -17,17 +17,12 @@ export default function transaction (state = initialState, action) {
     }
     case DELETE_TRANSACTION: {
       const { id } = action.payload;
-      return {
-        ...state,
-        byIds: {
-          ...state.byIds,
-          [id]: {
-            ...state.byIds[id],
-            completed: !state.byIds[id].completed
-          }
-        }
-      };
-    }
+      return state.filter(s=>{
+        console.log(s.id,id)
+        return s.id!==id
+      });
+    };
+    
     default:
       return state;
   }
